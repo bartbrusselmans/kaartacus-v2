@@ -1,0 +1,19 @@
+{
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-astro"],
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "arrowParens": "avoid",
+  "tailwindConfig": "./tailwind.config.mjs",
+  "tailwindFunctions": ["tv"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
+}
