@@ -1,13 +1,26 @@
 import { xml2json } from 'xml-js';
 
-import type { BggBoardgame, BggResponse, WorkerData } from '@types';
+import { contentfulClient } from '@contentful';
+import type { BggBoardgame, BggResponse, Member } from '@types';
 
 const BGG_HOST = import.meta.env['PUBLIC_BGG_HOST'];
 
-self.onmessage = async (event: MessageEvent<WorkerData>) => {
-  const { users } = event.data;
-
+self.onmessage = async () => {
+  console.log('Worker started');
+  console.log(import.meta.env);
   try {
+    // Fetch Kaartacus members
+    const members = await contentfulClient.getEntries<Member>({
+      content_type: 'member',
+    });
+
+    const users = members.items.map(member => {
+      return {
+        name: member.fields.name,
+        username: member.fields.bggUsername,
+      };
+    });
+
     // Fetch data from APIs
     const responses = await Promise.all(
       users.map(user =>
@@ -22,10 +35,6 @@ self.onmessage = async (event: MessageEvent<WorkerData>) => {
               ({ user: user.name, games: json.items.item }) as BggResponse,
           ),
       ),
-    );
-    console.log(
-      '🚀 ~ file: workers.ts:35 ~ self.onmessage= ~ responses:',
-      responses,
     );
 
     // Transform data

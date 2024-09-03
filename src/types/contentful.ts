@@ -19,7 +19,7 @@ export interface Member {
   contentTypeId: 'member';
   fields: {
     name: EntryFieldTypes.Symbol;
-    username: EntryFieldTypes.Symbol;
+    bggUsername: EntryFieldTypes.Symbol;
   };
 }
 

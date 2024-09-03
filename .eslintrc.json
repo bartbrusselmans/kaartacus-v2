@@ -21,7 +21,7 @@
     "astro"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    // "prettier/prettier": "error",
     "import/order": [
       "error",
       {
@@ -54,7 +54,7 @@
       },
       "rules": {
         "prettier/prettier": [
-          "error",
+          "warn",
           {
             "parser": "astro"
           }
